@@ -1,5 +1,3 @@
-import Divisions
-
 extension Day1: Puzzle {
 	public func solution(for part: Part, given input: String) -> Int {
 		input.split(separator: "\n").reduce(0) {
