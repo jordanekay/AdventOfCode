@@ -8,7 +8,7 @@ extension Day1: Puzzle {
 }
 
 extension Substring {
-	func digit(matching regex: Regex<(Substring, Substring)>) -> Int {
+	func digit(matching regex: Regex<(Self, Self)>) -> Int {
 		let match = firstMatch(of: regex)!.output.1
 		return digitPlusNames.firstIndex(of: .init(match)) ?? .init(match)!
 	}
