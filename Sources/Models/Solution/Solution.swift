@@ -14,6 +14,7 @@ public struct Solution: CustomStringConvertible {
 		let puzzle: any Puzzle = switch (year, day) {
 		case (2022, 1): Year2022.Day1()
 		case (2023, 1): Year2023.Day1()
+		case (2023, 2): Year2023.Day2()
 		default: throw Error.invalidDay
 		}
 
