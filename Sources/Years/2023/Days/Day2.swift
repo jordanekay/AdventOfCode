@@ -3,7 +3,7 @@ extension Day2: Puzzle {
 		let count = Reference<Int>()
 		let color = Reference<String>()
 		let regex = Regex {
-			TryCapture(OneOrMore(.digit), as: count, transform: { Int($0) })
+			TryCapture(OneOrMore(.digit), as: count) { Int($0) }
 			" "
 			Capture(OneOrMore(.word), as: color, transform: String.init)
 		}
