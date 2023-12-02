@@ -7,16 +7,16 @@ extension Day1: Puzzle {
 	}
 }
 
-extension Substring {
+private extension Substring {
 	func digit(matching regex: Regex<(Self, Self)>) -> Int {
 		let match = firstMatch(of: regex)!.output.1
 		return digitPlusNames.firstIndex(of: .init(match)) ?? .init(match)!
 	}
 }
 
-let digit = "\\d"
-let digitPlusNames = [digit, "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-let regexes = Dictionary(
+private let digit = "\\d"
+private let digitPlusNames = [digit, "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+private let regexes = Dictionary(
 	uniqueKeysWithValues: Part.allCases.map { part in
 		let string = part == .one ? digit : digitPlusNames.joined(separator: "|")
 		return (part, ["(\(string))", ".*(\(string))"].map { regex in
