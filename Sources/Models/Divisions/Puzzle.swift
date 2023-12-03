@@ -1,13 +1,7 @@
 public protocol Puzzle {
-    associatedtype Solution: CustomStringConvertible
+	associatedtype Solution: CustomStringConvertible
 
-    init()
+	init()
 
-    func solution(for part: Part, given input: String) -> Solution
-}
-
-public extension Puzzle {
-    func solution(for _: Part, given _: String) -> String {
-        "Undefined"
-    }
+	func solution(for part: Part, given input: String) -> Solution
 }

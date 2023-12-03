@@ -1,6 +1,3 @@
-import Algorithms
-import Divisions
-
 extension Day1: Puzzle {
 	public func solution(for part: Part, given input: String) -> Int {
 		let totals = input
