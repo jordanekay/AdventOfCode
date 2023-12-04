@@ -58,7 +58,8 @@ let package = Package(
 				.product(name: "Algorithms", package: "swift-algorithms"),
 				.product(name: "Collections", package: "swift-collections")
 			],
-			path: "Sources/Years/2023"
+			path: "Sources/Years/2023",
+			swiftSettings: [.unsafeFlags(["-O", "-enable-bare-slash-regex"])]
 		),
 		.executableTarget(
 			name: "Commands",
