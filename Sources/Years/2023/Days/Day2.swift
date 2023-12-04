@@ -1,7 +1,6 @@
 extension Day2: Puzzle {
 	public func solution(for part: Part, given input: String) -> Int {
-		let count = Reference<Int>()
-		let color = Reference<String>()
+		let (color, count) = (Reference<String>(), Reference<Int>())
 		let limits = ["red": 12, "green": 13, "blue": 14]
 		let regex = Regex {
 			TryCapture(OneOrMore(.digit), as: count) { .init($0) }; " "
@@ -14,12 +13,10 @@ extension Day2: Puzzle {
 				$0.merging([$1[color]: $1[count]], uniquingKeysWith: max)
 			}
 		
-			return $0 + { 
-				switch part {
-				case .one: maxCounts.contains { $0.value > limits[$0.key]! } ? 0 : id
-				case .two: maxCounts.values.reduce(1, *)
-				}
-			}()
+			return switch part {
+			case .one: $0 + (maxCounts.contains { $0.value > limits[$0.key]! } ? 0 : id)
+			case .two: $0 + maxCounts.values.reduce(1, *)
+			}
 		}
 	}
 }
