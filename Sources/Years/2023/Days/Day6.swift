@@ -10,7 +10,7 @@ extension Day6: Puzzle {
 		return zip(data[0], data[1]).map { time, record in
 			let root = (time * time - 4 * record).squareRoot()
 			let bounds = [-1, 1].map { ($0 * root - time) / 2 }	
-			return Int(ceil(bounds[1] - 1) - floor(bounds[0] + 1)) + 1
+			return .init(ceil(bounds[1] - 1) - floor(bounds[0] + 1)) + 1
 		}.reduce(1, *)
 	}
 }
