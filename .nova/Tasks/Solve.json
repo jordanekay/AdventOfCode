@@ -1,0 +1,17 @@
+{
+  "actions" : {
+    "build" : {
+      "enabled" : true,
+      "script" : "#!\/bin\/sh\nswift build"
+    },
+    "clean" : {
+      "enabled" : true,
+      "script" : "#!\/bin\/sh\nswift package update"
+    },
+    "run" : {
+      "enabled" : true,
+      "script" : "#!\/bin\/sh\nswift run advent"
+    }
+  },
+  "openLogOnRun" : "start"
+}
