@@ -14,7 +14,7 @@ extension Solve: AsyncParsableCommand {
 		let date = Date()
 		let year = year ?? Calendar.current.dateComponents([.year], from: date).year!
 		let day = day ?? Calendar.current.dateComponents([.day], from: date).day!
-		let part = part.flatMap(Part.init) ?? .one
+		let parts = part.flatMap(Part.init).map { [$0] } ?? Part.allCases
 		let url = URL(string: "https://adventofcode.com/\(year)/day/\(day)/input")!
 		let cookie = ProcessInfo.processInfo.environment["AOC_COOKIE"]!
 
@@ -23,6 +23,24 @@ extension Solve: AsyncParsableCommand {
 
 		let (data, _) = try await URLSession.shared.data(for: request)
 		let input = String(decoding: data, as: UTF8.self)
+		try parts.forEach { part in
+			try solve(
+				year: year,
+				day: day,
+				part: part,
+				input: input
+			)
+		}
+	}
+}
+
+private extension Solve {
+	func solve(
+		year: Int,
+		day: Int,
+		part: Part,
+		input: String
+	) throws {
 		let startTime = Date()
 		let solution = try Solution(
 			year: year,
@@ -33,7 +51,7 @@ extension Solve: AsyncParsableCommand {
 
 		let endTime = Date()
 		let time = Measurement(value: endTime.timeIntervalSince(startTime) * 1000, unit: UnitDuration.milliseconds)
-		
+
 		print(solution)
 		print("[Finished in \(time)]")
 	}
