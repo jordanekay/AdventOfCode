@@ -2,9 +2,9 @@ extension Day8: Puzzle {
 	public func solution(for part: Part, given input: String) -> Int {
 		let components = input.split(separator: "\n\n")
 		let directions = components[0].map(String.init)
-		let transitions = components[1].split(separator: "\n").map { $0.split(separator: " = ") }
-		let pair = { (line: [Substring]) in (line[0], line[1].matches(of: /[A-Z]{3}/).map(\.output)) }
-		let network = Dictionary(uniqueKeysWithValues: transitions.map(pair))
+		let lines = components[1].split(separator: "\n")
+		let nodes = lines.map { $0.matches(of: /[A-Z]{3}/).map(\.output) }
+		let network = Dictionary(uniqueKeysWithValues: nodes.map { ($0[0], Array($0[1...])) })
 		
 		func lcm(_ a: Int, _ b: Int) -> Int { a * b / gcd(a, b) }
 		func gcd(_ a: Int, _ b: Int) -> Int { b == 0 ? a : gcd(b, a % b) }		
