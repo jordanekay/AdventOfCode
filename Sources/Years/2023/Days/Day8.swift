@@ -3,9 +3,9 @@ extension Day8: Puzzle {
 		let components = input.split(separator: "\n\n")
 		let directions = components[0].map(String.init)
 		let pairs = components[1].split(separator: "\n").map { $0.split(separator: " = ") }
-		let network = Dictionary(uniqueKeysWithValues: pairs.map { ($0[0], $0[1]) }).mapValues {
-			$0.dropFirst().dropLast().split(separator: ", ")
-		}
+		let network = Dictionary(uniqueKeysWithValues: pairs.map { 
+			($0[0], $0[1].dropFirst().dropLast().split(separator: ", ")) 
+		})
 		
 		func lcm(_ a: Int, _ b: Int) -> Int { a * b / gcd(a, b) }
 		func gcd(_ a: Int, _ b: Int) -> Int { b == 0 ? a : gcd(b, a % b) }		
