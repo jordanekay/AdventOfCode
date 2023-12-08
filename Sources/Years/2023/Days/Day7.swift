@@ -1,9 +1,11 @@
 extension Day7: Puzzle {
 	public func solution(for part: Part, given input: String) -> Int {
+		let numbers = 2...10
 		let faces = ["T", "J", "Q", "K", "A"]
+		let total = numbers.count + faces.count
 		let kinds = [[1: 5], [2: 2], [2: 4], [3: 3], [3: 3, 2: 2], [4: 4], [5: 5]]
 		let faceValue: (String, Part) -> Int = {
-			$0 == "J" && $1 == .two ? 1 : faces.firstIndex(of: $0)! + 10
+			$0 == "J" && $1 == .two ? 1 : numbers.upperBound + faces.firstIndex(of: $0)!
 		}
 
 		return input.split(separator: "\n").map { line in
@@ -22,8 +24,8 @@ extension Day7: Puzzle {
 					$0.allSatisfy { key, value in adjustedCounts.filter { key == $0 }.count == value }
 				}!,
 				value: strengths.reversed().enumerated().reduce(0) {
-					let (power, strength) = $1
-					return $0 + Int(pow(Double(14), Double(power))) * strength
+					let (place, strength) = $1
+					return $0 + Int(pow(Double(total), Double(place))) * strength
 				}
 			)
 		}.sorted { ($0.1, $0.2) < ($1.1, $1.2) }.map(\.0).enumerated().reduce(0) {
