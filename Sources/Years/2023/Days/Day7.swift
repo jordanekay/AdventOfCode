@@ -1,7 +1,6 @@
 extension Day7: Puzzle {
 	public func solution(for part: Part, given input: String) -> Int {
-		let numbers = 2...10
-		let faces = ["T", "J", "Q", "K", "A"]
+		let (numbers, faces) = (2...10, ["T", "J", "Q", "K", "A"])
 		let total = numbers.count + faces.count
 		let kinds = [[1: 5], [2: 2], [2: 4], [3: 3], [3: 3, 2: 2], [4: 4], [5: 5]]
 		let count = { (strength: Int, strengths: [Int]) in strengths.filter { $0 == strength }.count }
