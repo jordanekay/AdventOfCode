@@ -2,10 +2,9 @@ extension Day8: Puzzle {
 	public func solution(for part: Part, given input: String) -> Int {
 		let components = input.split(separator: "\n\n")
 		let directions = components[0].map(String.init)
-		let pairs = components[1].split(separator: "\n").map { $0.split(separator: " = ") }
-		let network = Dictionary(uniqueKeysWithValues: pairs.map { 
-			($0[0], $0[1].dropFirst().dropLast().split(separator: ", ")) 
-		})
+		let transitions = components[1].split(separator: "\n").map { $0.split(separator: " = ") }
+		let pair = { (line: [Substring]) in (line[0], line[1].dropFirst().dropLast().split(separator: ", ")) }
+		let network = Dictionary(uniqueKeysWithValues: transitions.map(pair))
 		
 		func lcm(_ a: Int, _ b: Int) -> Int { a * b / gcd(a, b) }
 		func gcd(_ a: Int, _ b: Int) -> Int { b == 0 ? a : gcd(b, a % b) }		
@@ -23,5 +22,3 @@ extension Day8: Puzzle {
 		}.reduce(1, lcm)
 	}
 }
-
-
