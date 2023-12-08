@@ -3,7 +3,7 @@ extension Day8: Puzzle {
 		let components = input.split(separator: "\n\n")
 		let directions = components[0].map(String.init)
 		let transitions = components[1].split(separator: "\n").map { $0.split(separator: " = ") }
-		let pair = { (line: [Substring]) in (line[0], line[1].dropFirst().dropLast().split(separator: ", ")) }
+		let pair = { (line: [Substring]) in (line[0], line[1].matches(of: /[A-Z]{3}/).map(\.output)) }
 		let network = Dictionary(uniqueKeysWithValues: transitions.map(pair))
 		
 		func lcm(_ a: Int, _ b: Int) -> Int { a * b / gcd(a, b) }
