@@ -10,7 +10,7 @@
     },
     "run" : {
       "enabled" : true,
-      "script" : "#!\/bin\/sh\nswift run advent"
+      "script" : "#!\/bin\/sh\nswift build --configuration release\ncp -f .build\/release\/advent \/usr\/local\/bin\/advent\nadvent"
     }
   },
   "openLogOnRun" : "start"
