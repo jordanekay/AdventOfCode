@@ -4,19 +4,18 @@ extension Day7: Puzzle {
 		let faces = ["T", "J", "Q", "K", "A"]
 		let total = numbers.count + faces.count
 		let kinds = [[1: 5], [2: 2], [2: 4], [3: 3], [3: 3, 2: 2], [4: 4], [5: 5]]
+		let count = { (strength: Int, strengths: [Int]) in strengths.filter { $0 == strength }.count }
 		let faceValue: (String, Part) -> Int = {
 			$0 == "J" && $1 == .two ? 1 : numbers.upperBound + faces.firstIndex(of: $0)!
 		}
 
 		return input.split(separator: "\n").map { line in
 			let components = line.split(separator: " ")
-			let strengths = components[0].map(String.init).map { Int($0) ?? faceValue($0, part) }
-			let counts = strengths.map { strength in strength == 1 ? 0 : strengths.filter { $0 == strength }.count }
+			let strengths = components[0].map(String.init).map { .init($0) ?? faceValue($0, part) }
+			let counts = strengths.map { $0 == 1 ? 0 : count($0, strengths) }
 			let mostCommonStrength = strengths[counts.firstIndex { $0 == counts.max()! }!]
 			let adjustedStrengths = strengths.map { $0 == 1 ? mostCommonStrength : $0 }
-			let adjustedCounts = part == .one ? counts : adjustedStrengths.map {
-				strength in adjustedStrengths.filter { $0 == strength }.count
-			}
+			let adjustedCounts = part == .one ? counts : adjustedStrengths.map { count($0, adjustedStrengths) }
 
 			return (
 				bid: Int(components[1])!,
