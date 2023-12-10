@@ -20,6 +20,7 @@ public struct Solution: CustomStringConvertible {
 		case (2023, 6): Year2023.Day6()
 		case (2023, 7): Year2023.Day7()
 		case (2023, 8): Year2023.Day8()
+		case (2023, 9): Year2023.Day9()
 		default: throw Error.invalidDay
 		}
 
