@@ -15,3 +15,4 @@ public struct Day11 { public init() {} }
 public struct Day13 { public init() {} }
 public struct Day14 { public init() {} }
 public struct Day15 { public init() {} }
+public struct Day16 { public init() {} }
