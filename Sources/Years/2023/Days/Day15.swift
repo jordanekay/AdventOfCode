@@ -3,30 +3,19 @@ extension Day15: Puzzle {
 		let entries = input.dropLast().split(separator: ",")
 		let hash: (Substring) -> Int = { $0.reduce(0) { ($0 + Int($1.asciiValue!)) * 17 % 256 } }
 		
-		switch part {
-		case .one: 
-			return entries.reduce(0) { $0 + hash($1) }
-		case .two: 
-			var boxes: [Int: [(String, Int)]] = [:]
-			entries.forEach { entry in
+		return switch part {
+		case .one: entries.reduce(0) { $0 + hash($1) }
+		case .two: entries.reduce([:]) { boxes, entry -> [Int: [(String, Int)]] in
 				let label = entry.filter(\.isLetter)
 				let box = hash(.init(label))
-				var lenses = boxes[box] ?? []
-				
+				let lenses = boxes[box] ?? []
 				let index = lenses.firstIndex { $0.0 == label }
-				if entry.hasSuffix("-") {
-					_ = index.map { lenses.remove(at: $0) }
-				} else {
-					let lens = (label, Int(.init(entry.last!))!)
-					index.map { lenses[$0] = lens } ?? lenses.append(lens)
-				}
-				boxes[box] = lenses
-			}
-
-			return boxes.reduce(0) {
-				$0 + ($1.key + 1) * $1.value.enumerated().reduce(0) { 
-					$0 + ($1.0 + 1) * $1.1.1 
-				}
+				let removed = entry.hasSuffix("-") ? lenses.filter { $0.0 != label } : nil
+				let lens = entry.last.map(String.init).flatMap(Int.init).map { [(label, $0)] } ?? []
+				let added = index.map { lenses[..<$0] + lens + lenses[($0 + 1)...] } ?? lenses + lens
+				return boxes.merging([box: removed ?? added]) { $1 }
+			}.reduce(0) {
+				$0 + ($1.key + 1) * $1.value.enumerated().reduce(0) { $0 + ($1.0 + 1) * $1.1.1 }
 			}
 		}
 	}
