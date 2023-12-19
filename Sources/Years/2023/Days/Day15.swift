@@ -14,9 +14,7 @@ extension Day15: Puzzle {
 				let lens = entry.last.map(String.init).flatMap(Int.init).map { [(label, $0)] } ?? []
 				let added = index.map { lenses[..<$0] + lens + lenses[($0 + 1)...] } ?? lenses + lens
 				return boxes.merging([box: removed ?? added]) { $1 }
-			}.reduce(0) {
-				$0 + ($1.key + 1) * $1.value.enumerated().reduce(0) { $0 + ($1.0 + 1) * $1.1.1 }
-			}
+			}.reduce(0) { $0 + ($1.key + 1) * $1.value.enumerated().reduce(0) { $0 + ($1.0 + 1) * $1.1.1 } }
 		}
 	}
 }
