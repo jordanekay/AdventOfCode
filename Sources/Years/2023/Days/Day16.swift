@@ -9,7 +9,7 @@ extension Day16: Puzzle {
 			var data = [$0]
 			var seen: Set<[Int]> = []
 			var energized = seen
-		
+			
 			while !data.isEmpty {
 				data = data.flatMap { pair -> [((Int, Int), (Int, Int))] in
 					let (beam, direction) = pair
@@ -17,10 +17,10 @@ extension Day16: Puzzle {
 					let record = [next.0, next.1, direction.0, direction.1]
 					let valid = next.0 >= 0 && next.0 < lines.count && next.1 >= 0 && next.1 < lines[0].count
 					if seen.contains(record) || !valid { return [] }
-		
+					
 					seen.insert(record)
 					energized.insert([next.0, next.1])
-				
+					
 					let nextDirection: [(Int, Int)] = switch (lines[next.0][next.1], direction) {
 					case ("|", (0, _)): [(1, 0), (-1, 0)]
 					case ("-", (_, 0)): [(0, 1), (0, -1)]
@@ -30,11 +30,11 @@ extension Day16: Puzzle {
 					case ("\\", (0, _)): [(direction.1, 0)]
 					default: [direction]
 					}
-				
+					
 					return nextDirection.map { (next, $0) }
 				}
 			}
-		
+			
 			return energized.count			
 		}.max()!
 	}
