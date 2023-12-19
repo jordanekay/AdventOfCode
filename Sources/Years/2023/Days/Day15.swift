@@ -7,8 +7,7 @@ extension Day15: Puzzle {
 		case .one: entries.reduce(0) { $0 + hash($1) }
 		case .two: entries.reduce([:]) { boxes, entry -> [Int: [(String, Int)]] in
 				let label = entry.filter(\.isLetter)
-				let box = hash(.init(label))
-				let lenses = boxes[box] ?? []
+				let box = hash(.init(label)), lenses = boxes[box] ?? []
 				let index = lenses.firstIndex { $0.0 == label }
 				let removed = entry.hasSuffix("-") ? lenses.filter { $0.0 != label } : nil
 				let lens = entry.last.map(String.init).flatMap(Int.init).map { [(label, $0)] } ?? []
