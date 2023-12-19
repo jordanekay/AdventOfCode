@@ -1,16 +1,16 @@
 extension Day15: Puzzle {
 	public func solution(for part: Part, given input: String) -> Int {
 		let entries = input.dropLast().split(separator: ",")
-		let hash: (Int, Character) -> Int = { ($0 + Int($1.asciiValue!)) * 17 % 256 }
+		let hash: (Substring) -> Int = { $0.reduce(0) { ($0 + Int($1.asciiValue!)) * 17 % 256 } }
 		
 		switch part {
 		case .one: 
-			return entries.reduce(0) { $0 + $1.reduce(0, hash) }
+			return entries.reduce(0) { $0 + hash($1) }
 		case .two: 
 			var boxes: [Int: [(String, Int)]] = [:]
 			entries.forEach { entry in
 				let label = entry.filter(\.isLetter)
-				let box = label.reduce(0, hash)
+				let box = hash(.init(label))
 				var lenses = boxes[box] ?? []
 				
 				let index = lenses.firstIndex { $0.0 == label }
