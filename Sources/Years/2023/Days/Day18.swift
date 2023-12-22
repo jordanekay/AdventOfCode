@@ -16,21 +16,25 @@ extension Day18: Puzzle {
 		L 2 (#015232)
 		U 2 (#7a21e3)
 		"""
-		
+
 		let directions: [Substring: [Int]] = ["R": [0, 1], "D": [1, 0], "L": [0, -1], "U": [-1, 0]]
-		let matches = input.split(separator: "\n").map { $0.firstMatch(of: /(.) (.) \((.*)\)/)! }
-		let holes = Set(matches.map(\.output).reduce([[0, 0]]) {
+		let lines = input.split(separator: "\n")
+		let matches = lines.map { $0.firstMatch(of: /(.*) (.*) \((.*)\)/)! }
+		let list = matches.map(\.output).reduce([[1, 1]]) {
 			let (_, direction, number, _) = $1
 			let count = Int(number)!
 			let current = Array(repeating: $0.last!, count: count)
 			let trench = (1...count).map { x in directions[direction]!.map { $0 * x } }
 			let path = zip(current, trench).map { zip($0, $1).map(+) }
 			return $0 + path
-		})
+		}
 		
+		// var fillCount = 0
+		// var filled: Set<[Int]> = [[0, 0]]
+		let mins = [0, 1].map { index in list.map { $0[index] }.min()! - 1 }
+		let holes = Set(list.map { zip($0, mins).map(-) })
 		
-		
-		
-		return 0
+		print(holes)
+		return holes.count
 	}
 }
