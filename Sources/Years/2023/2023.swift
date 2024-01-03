@@ -19,3 +19,10 @@ public struct Day15 { public init() {} }
 public struct Day16 { public init() {} }
 public struct Day17 { public init() {} }
 public struct Day18 { public init() {} }
+public struct Day19 { public init() {} }
+public struct Day20 { public init() {} }
+public struct Day21 { public init() {} }
+public struct Day22 { public init() {} }
+public struct Day23 { public init() {} }
+public struct Day24 { public init() {} }
+public struct Day25 { public init() {} }

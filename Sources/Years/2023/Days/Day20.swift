@@ -1,4 +1,4 @@
-extension Day19: Puzzle {
+extension Day20: Puzzle {
 	public func solution(for part: Part, given input: String) -> Int {
 		let input = """
 		broadcaster -> a, b, c
