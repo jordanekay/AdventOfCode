@@ -9,7 +9,7 @@
 	(defn value [{:id id :rounds rounds}]
 		(def rgb |[(in $ :red 0) (in $ :green 0) (in $ :blue 0)])
 		(def summary (map max (splice (map rgb rounds))))
-		(match part 
+		(match part
 			1 (do (def limit [12 13 14])
 				(if (all < summary limit) id 0))
 			2 (product summary)))
