@@ -1,7 +1,7 @@
 (defn solve [input part]
 	(def format ~{
 		:main (split "\n" (group :line))
-		:line (some (+ (number :d+) " "))})
+		:line (some (+ (number :d+) :s))})
 	(def pairs (peg/match format input))
 	(defn list [side] (map |(get $ side) pairs))
 	(sum (match part
