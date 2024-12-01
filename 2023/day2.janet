@@ -14,4 +14,4 @@
 				(if (all < summary limit) id 0))
 			2 (product summary)))
 	(def games (peg/match format input))
-	(reduce + 0 (map value games)))
+	(sum (map value games)))
