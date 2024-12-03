@@ -12,10 +12,10 @@
 			(get report $) (get report (dec $)))
 			(range 1 (length report)))))
 	(defn safe? [part] (fn result [report]
-		(def indexes (range (length report)))
-		(defn dampened [index]
-			(map |(get report $) (filter |(not= $ index) indexes)))
 		(match part
 			1 (strictly-safe? report)
-			2 (any? (map strictly-safe? (map dampened indexes))))))
+			2 (do (def indexes (range (length report)))
+				(defn dampened [index]
+					(map |(get report $) (filter |(not= $ index) indexes)))
+				(any? (map strictly-safe? (map dampened indexes)))))))
 	(count |(any? (map (safe? part) $)) pairs))
