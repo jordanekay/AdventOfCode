@@ -8,7 +8,7 @@
 	(def columns (math/trans rows))
 	(def reversed-rows (math/fliplr rows))
 	(def size (length rows))
-	(def clamped-range (range (- size 2)))
+	(def clamped-range (range (- size (length target) (- 1))))
 	(defn diagonal [matrix row column]
 		(def value (get (get matrix row) column))
 		(if value [value ;(diagonal matrix
@@ -24,7 +24,9 @@
 	(defn valid? [chunk]
 		(some |(= $ chunk) [target (string/reverse target)]))
 	(defn slice [matrix row column]
-		(math/slice-m matrix [row (+ row 3)] [column (+ column 3)]))
+		(math/slice-m matrix
+			[row (+ row (length target))]
+			[column (+ column (length target))]))
 	(defn has-pattern? [matrix row column]
 		(def area (slice matrix row column))
 		(def pairs (map |(diagonal $ 0 0) [area (math/fliplr area)]))
