@@ -30,8 +30,7 @@
 				(cond
 					(= "#" (value ;(next ;spot))) (turn)
 					(= (next ;spot) [o-row o-column]) (turn)
-					(do (set (visited spot) direction)) (set spot (next ;spot)))))
-		visited)
+					(do (set (visited spot) direction)) (set spot (next ;spot))))) visited)
 	(defn obstacle? [o-row o-column] (empty? (visit row column o-row o-column)))
 	(match part
 		1	(length (keys (visit row column nil nil)))
