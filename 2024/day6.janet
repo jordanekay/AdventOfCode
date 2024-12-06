@@ -1,4 +1,4 @@
-(defn solve [input part] 0
+(defn solve [input part]
 	(def format ~{
 		:main (split "\n" (group :line))
 		:line (some (<- 1))})
