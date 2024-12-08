@@ -11,10 +11,10 @@
 		(def pair (map |(index-of $ update) rule))
 		(or (some nil? pair) (< (get pair 0) (get pair 1))))
 	(defn satisfy [update violation]
-		(def indices (map |(index-of (get violation $) update) [0 1])) [
-			;(array/slice update 0 (indices 1)) (get violation 0)
-			;(array/slice update (indices 1) (indices 0))
-			;(array/slice update (inc (indices 0)))])
+		(def swapped @[;update])
+		(def indices (map |(index-of (get violation $) update) [0 1]))
+		(put swapped (get indices 1) (get violation 0))
+		(put swapped (get indices 0) (get violation 1)) (pp swapped) swapped)
 	(defn adjust [update violations]
 		(reduce satisfy update violations))
 	(defn correct [update]
