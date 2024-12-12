@@ -4,9 +4,9 @@
 	(def format ~{
 		:main (split " " :stone)
 		:stone (number :d+)})
-	(var stones (peg/match format input))
-	(var size (length stones))
 	(def cache @{})
+	(def repetitions (match part 1 25 2 75))
+	(var stones (peg/match format input))
 	
 	(defn digits [stone] (->>
 		(string stone)
@@ -29,7 +29,7 @@
 			(even? (length (digits stone))) (split stone)
 			(* 2024 stone)))
 	
-	(for j 0 75 (do
+	(repeat repetitions (do
 		(for i 0 (length stones)
 			(def stone (get stones i))
 			(def value (get cache stone))
