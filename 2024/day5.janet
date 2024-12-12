@@ -7,6 +7,7 @@
 	(def lines (peg/match format input))
 	(def rules (filter |(= (length $) 2) lines))
 	(def updates (filter |(> (length $) 2) lines))
+	
 	(defn applied? [rule update]
 		(def pair (map |(index-of $ update) rule))
 		(or (some nil? pair) (< (get pair 0) (get pair 1))))
@@ -29,6 +30,7 @@
 	(defn middle-incorrect [update]
 		(def corrected (correct update))
 		(if (= update corrected) 0 (middle corrected)))
+	
 	(sum (match part
 		1 (map middle-correct updates)
 		2 (map middle-incorrect updates))))

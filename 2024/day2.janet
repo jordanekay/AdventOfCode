@@ -4,6 +4,7 @@
 		:line (some (+ (number :d+) :s))})
 	(def reports (peg/match format input))
 	(def pairs (map |[$ (reverse $)] reports))
+	
 	(defn gradual? [curr next]
 		(def diff (- curr next))
 		(and (> diff 0) (<= diff 3)))
@@ -18,4 +19,5 @@
 				(defn dampened [index]
 					(map |(get report $) (filter |(not= $ index) indexes)))
 				(any? (map strictly-safe? (map dampened indexes)))))))
+	
 	(count |(any? (map (safe? part) $)) pairs))

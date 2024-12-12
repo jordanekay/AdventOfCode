@@ -8,6 +8,7 @@
 	(def columns (math/trans rows))
 	(def size (length rows))
 	(def clamped-range (range (- size (length target) (- 1))))
+
 	(defn diagonal [matrix row column]
 		(def value (get (get matrix row) column))
 		(if value [value ;(diagonal matrix
@@ -15,7 +16,6 @@
 	(defn skewed [matrix] [
 		;(map |(diagonal matrix 0 $) (range size))
 		;(map |(diagonal matrix $ 0) (range 1 size))])
-	(def diagonals [;(skewed rows) ;(skewed (math/fliplr rows))])
 	(defn count-words [matrix]
 		(def lines (map string/join matrix))
 		(sum (map |((comp length string/find-all) target $)
@@ -30,8 +30,10 @@
 		(all valid? (map string/join pairs)))
 	(defn patterns [row]
 		(count true? (map |(has-pattern? rows row $) clamped-range)))
+	
 	(sum (match part
-		1 (map count-words [rows columns diagonals])
+		1 (do (def diagonals [;(skewed rows) ;(skewed (math/fliplr rows))])
+			(map count-words [rows columns diagonals]))
 		2 (map patterns clamped-range))))
 
 
