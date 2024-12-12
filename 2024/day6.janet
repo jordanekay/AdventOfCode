@@ -11,8 +11,6 @@
 	
 	(defn value [row column]
 		(get (get rows row) column))
-	(defn obstacle? [o-row o-column]
-		(empty? (visit row column o-row o-column)))
 	(defn visit [row column o-row o-column]
 		(var visited @{})
 		(var direction :up)
@@ -35,7 +33,9 @@
 					(= "#" (value ;(next ;spot))) (turn)
 					(= (next ;spot) [o-row o-column]) (turn)
 					(do (set (visited spot) direction)) (set spot (next ;spot))))) visited)
-	
+	(defn obstacle? [o-row o-column]
+		(empty? (visit row column o-row o-column)))
+
 	(match part
 		1	(length (keys (visit row column nil nil)))
 		2 (count true? (flatten (map (fn [row] (map |(obstacle? row $) range)) range)))))
