@@ -15,6 +15,4 @@
       (range (inc from) (inc to))
       (range (dec from) (dec to) -1)))
   (def ranges (map intermediates (range (dec (length values)))))
-  (match part
-    1 (count reset? values)
-    2 (count reset? (flatten ranges))))
+  (count reset? (match part 1 values 2 (flatten ranges))))
