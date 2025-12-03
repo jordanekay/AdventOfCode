@@ -5,8 +5,7 @@
   (def pairs (peg/match format input))
   (defn repeats? [id size]
     (and
-      (> (length id) 1)
-      (int? size)
+      (> (length id) 1) (int? size)
       (= 1 (length (distinct (partition size id))))))
   (defn silly? [id] false)
   (defn check [id]
@@ -15,8 +14,7 @@
       (match part
         1 (repeats? id half-length)
         2 (any? (map |(repeats? id $) (range 1 (inc half-length))))))
-    (pp [id invalid])
     (if invalid (scan-number id) 0))
   (defn invalid-count [ids] (reduce + 0 (map check (map string ids))))
   (def ranges (map |(range ;$) pairs))
-  (pp (reduce + 0 (map invalid-count ranges))))
+  (reduce + 0 (map invalid-count ranges)))
