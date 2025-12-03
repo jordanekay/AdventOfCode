@@ -7,7 +7,6 @@
     (and
       (> (length id) 1) (int? size)
       (= 1 (length (distinct (partition size id))))))
-  (defn silly? [id] false)
   (defn check [id]
     (def half-length (/ (length id) 2))
     (def invalid
