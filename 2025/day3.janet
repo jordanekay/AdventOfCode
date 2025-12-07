@@ -11,4 +11,4 @@
         (+ (* max-value (math/pow 10 (dec count)))
            (max-joltage (slice batteries (inc index)) (dec count))))))
   (def count (match part 1 2 2 12))
-  (reduce + 0 (map |(max-joltage $ count) banks)))
+  (sum (map |(max-joltage $ count) banks)))

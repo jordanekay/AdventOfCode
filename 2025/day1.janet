@@ -1,11 +1,9 @@
 (defn solve [input part]
   (def format
     ~{:main (split "\n" (group :line))
-      :line (* (+ :left :right) (number :d+))
-      :right (* "R" (constant 1))
-      :left (* "L" (constant -1))})
+      :line (* (+ (/ "L" -1) (/ "R" 1)) (number :d+))})
   (def pairs (peg/match format input))
-  (def offsets (array 50 ;(map |(reduce * 1 $) pairs)))
+  (def offsets (array 50 ;(map |(* ;$) pairs)))
   (def values (accumulate2 + offsets))
   (defn reset? [value] (zero? (mod value 100)))
   (defn intermediates [index]

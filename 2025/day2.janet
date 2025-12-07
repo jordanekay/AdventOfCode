@@ -14,6 +14,6 @@
         1 (repeats? id half-length)
         2 (any? (map |(repeats? id $) (range 1 (inc half-length))))))
     (if invalid (scan-number id) 0))
-  (defn invalid-count [ids] (reduce + 0 (map check (map string ids))))
+  (defn invalid-count [ids] (+ ;(map check (map string ids))))
   (def ranges (map |(range ;$) pairs))
-  (reduce + 0 (map invalid-count ranges)))
+  (sum (map invalid-count ranges)))
